@@ -7,7 +7,7 @@ const a = [
     {
         name: "Heater 2",
         url: "Heater-2.mp3",
-        key: "W"        
+        key: "W"
     },
     {
         name: "Heater 3",
