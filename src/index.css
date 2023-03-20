@@ -42,6 +42,7 @@ footer p {
 
 .git--icon {
   display: inline;
+  margin-left:3px;
 }
 
 a {
@@ -50,7 +51,6 @@ a {
 
 .footer--div {
   width: 300px;
-  /* background-color: antiquewhite; */
   display: flex;
 }
 
