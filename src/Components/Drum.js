@@ -1,25 +1,30 @@
-// import { useEffect } from "react"
-
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function Drum(props) {
 
-    const audio = new Audio(`https://s3.amazonaws.com/freecodecamp/drums/${props.sound}`)
+    const audioRef = useRef()
     const [clicked, setClicked] = useState(false)
 
-    function playSound(e) {
+    function handleClick(e) {
         if (props.isPowered) {
-            audio.volume = 0.2;
-            audio.currentTime = 0;  //resets the sound
-            audio.play()
-            setClicked(true)
-            setTimeout(() => {
-                setClicked(false)
-            }, 100);
+            audioRef.current.volume = props.volume / 100
+            audioRef.current.currentTime = 0
+            audioRef.current.play()
+            animateClick()
         }
     }
 
+    function animateClick() {
+        setClicked(true)
+        setTimeout(() => {
+            setClicked(false)
+        }, 100);
+    }
+
     return (
-        <button className={clicked ? "drum-pad clicked" : "drum-pad"} id={`Key${props.keyStroke}`} onClick={playSound} name={props.name}>{props.keyStroke}</button>
+        <div>
+            <button className={clicked ? "drum-pad clicked" : "drum-pad"} id={`Key${props.keyStroke}`} onClick={handleClick} name={props.name}>{props.keyStroke}</button>
+            <audio ref={audioRef} src={`https://s3.amazonaws.com/freecodecamp/drums/${props.sound}`} volume={props.volume} />
+        </div>
     )
 }

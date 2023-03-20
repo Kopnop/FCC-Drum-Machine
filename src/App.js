@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 
 function App() {
 
-  const [lastClicked, setLastClicked] = useState("")
   const [allDrums, setAllDrums] = useState([])
   const [isPowered, setIsPowered] = useState(true)
+  const [volume, setVolume] = useState(33)
+  const [lastClicked, setLastClicked] = useState("")
 
   function changeDisplay(e) {
     if (isPowered && e.target.type === "submit") {
@@ -14,9 +15,10 @@ function App() {
     }
   }
 
-  function switchPower() {
-    setIsPowered(prevIsPowered => !prevIsPowered)
-    setLastClicked("")
+  function changeVolume(e) {
+    if (isPowered) {
+      setVolume(e.target.value)
+    }
   }
 
   useEffect(() => {
@@ -28,6 +30,14 @@ function App() {
       }
     }))
   }, [])
+
+  useEffect(() => {
+    setLastClicked(`Volume: ${volume}`)
+  }, [volume])
+
+  useEffect(() => {
+    setLastClicked("")
+  }, [isPowered])
 
   useEffect(() => {
     function handleKeyPress(e) {
@@ -46,17 +56,18 @@ function App() {
     <main>
       <div id="drum-machine">
         <div className="drumDiv" onClick={changeDisplay}>
-          {allDrums.map(item => <Drum key={item.keyStroke} keyStroke={item.keyStroke} sound={item.sound} name={item.name} isPowered={isPowered} />)}
+          {allDrums.map(item => <Drum key={item.keyStroke} keyStroke={item.keyStroke} sound={item.sound} name={item.name} isPowered={isPowered} volume={volume} />)}
         </div>
         <div className="optionsDiv">
-          <label htmlFor="isPowered">Power switch
-            <input id="isPowered" type="checkbox" checked={isPowered} onChange={switchPower} />
-            </label>
+          <label className="powerswitch" htmlFor="isPowered">            
+            <input id="isPowered" type="checkbox" checked={isPowered} onChange={() => setIsPowered(prevIsPowered => !prevIsPowered)} />
+            <p>Power</p>
+          </label>
           <div className="display">
-            <p>{lastClicked}</p>
+            <p id="display--p">{lastClicked}</p>
           </div>
-          {/* TODO: volume-slider */}
-          <button>Volume slider</button>
+          <input className="volumeslider" type="range" min="0" max="100" value={volume} onChange={changeVolume} />
+          <p className="volume--p">Volume</p>
         </div>
       </div>
     </main>
