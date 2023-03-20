@@ -20,10 +20,38 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 96vh;
   width: 100vw;
   background: linear-gradient(135deg, rgb(0, 0, 0) 0%, rgb(44, 44, 44) 45%, rgb(44, 44, 44) 55%, rgb(0, 0, 0) 100%);
+}
 
+footer {
+  height: 4vh;
+  background-color: #f59a02;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+  align-items: center;
+}
+
+footer p {
+  margin: auto;
+  margin-left: 10px;
+  display: inline;
+}
+
+.git--icon {
+  display: inline;
+}
+
+a {
+  color: currentColor
+}
+
+.footer--div {
+  width: 300px;
+  /* background-color: antiquewhite; */
+  display: flex;
 }
 
 .optionsDiv {
@@ -99,7 +127,8 @@ main {
   font-size: 1.3rem;
 }
 
-#isPowered, .powerswitch {
+#isPowered,
+.powerswitch {
   cursor: pointer;
 }
 
@@ -112,9 +141,9 @@ main {
   font-weight: 600;
   border: 2px solid black
 }
+
 .powerswitch p {
   margin: 0px 0px 0px 10px
-  
 }
 
 input[type="checkbox"] {
@@ -129,4 +158,42 @@ input[type="checkbox"] {
 
 input[type="checkbox"]:checked {
   background-color: rgb(184, 20, 20)
-} 
+}
+
+@media (max-width: 600px) {
+  #drum-machine {
+    flex-direction: column;
+    width: 90%;
+    height: 600px;
+  }
+
+  .drum-pad {
+    width: 90px;
+    height: 90px;
+  }
+
+  .drumDiv {
+    width: auto;
+    margin: auto;
+  }
+
+  .optionsDiv {
+    width: 50%;
+  }
+
+  * {
+    font-size: 1.2rem;
+  }
+
+  .display {
+    width: 100%
+  }
+
+  footer p {
+    font-size: 1rem;
+  }
+
+  .footer--div {
+    width: 600px;
+  }
+}

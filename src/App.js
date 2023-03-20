@@ -1,6 +1,7 @@
 import Drum from "./Components/Drum";
 import sounds from "./data/sounds";
 import { useState, useEffect } from "react";
+import Footer from "./Components/Footer";
 
 function App() {
 
@@ -53,24 +54,27 @@ function App() {
   }, [allDrums, isPowered])
 
   return (
-    <main>
-      <div id="drum-machine">
-        <div className="drumDiv" onClick={changeDisplay}>
-          {allDrums.map(item => <Drum key={item.keyStroke} keyStroke={item.keyStroke} sound={item.sound} name={item.name} isPowered={isPowered} volume={volume} />)}
-        </div>
-        <div className="optionsDiv">
-          <label className="powerswitch" htmlFor="isPowered">            
-            <input id="isPowered" type="checkbox" checked={isPowered} onChange={() => setIsPowered(prevIsPowered => !prevIsPowered)} />
-            <p>Power</p>
-          </label>
-          <div className="display">
-            <p id="display--p">{lastClicked}</p>
+    <div>
+      <main>
+        <div id="drum-machine">
+          <div className="drumDiv" onClick={changeDisplay}>
+            {allDrums.map(item => <Drum key={item.keyStroke} keyStroke={item.keyStroke} sound={item.sound} name={item.name} isPowered={isPowered} volume={volume} />)}
           </div>
-          <input className="volumeslider" type="range" min="0" max="100" value={volume} onChange={changeVolume} />
-          <p className="volume--p">Volume</p>
+          <div className="optionsDiv">
+            <label className="powerswitch" htmlFor="isPowered">
+              <input id="isPowered" type="checkbox" checked={isPowered} onChange={() => setIsPowered(prevIsPowered => !prevIsPowered)} />
+              <p>Power</p>
+            </label>
+            <div className="display">
+              <p id="display--p">{lastClicked}</p>
+            </div>
+            <input className="volumeslider" type="range" min="0" max="100" value={volume} onChange={changeVolume} />
+            <p className="volume--p">Volume</p>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+      <Footer />
+    </div>
   );
 }
 
