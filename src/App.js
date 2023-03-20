@@ -1,34 +1,42 @@
 import Drum from "./Components/Drum";
 import sounds from "./data/sounds";
-import React from "react";
+import { useState, useEffect } from "react";
 
 function App() {
 
-  const [lastClicked, setLastClicked] = React.useState("")
-
-  //state?
-  const keys = ["Q", "W", "E", "A", "S", "D", "Y", "X", "C"]
+  const [lastClicked, setLastClicked] = useState("")
 
   //state?
   const allDrums = sounds.map((item, index) => {
     return {
-      keyStroke: keys[index],
+      keyStroke: item.key,
       sound: item.url,
       name: item.name
     }
   })
 
-  function testFunc(e) {
+  function changeDisplay(e) {
     if (e.target.type === "submit") {
-      setLastClicked(e.target.id)
+      setLastClicked(e.target.name)
     }
   }
+
+  function handleKeyPress(e) {
+    document.getElementById(e.code).click()
+  }
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyPress)
+    return function cleanup() {
+      window.removeEventListener('keydown', handleKeyPress)
+    }
+  }, [])
 
   return (
     <main>
       <div id="drum-machine">
-        <div className="drumDiv" onClick={testFunc}>
-          {allDrums.map(item => <Drum key={item.keyStroke} keyStroke={item.keyStroke} sound={item.sound} name={item.name} />)}
+        <div className="drumDiv" onClick={changeDisplay}>
+          {allDrums.map(item => <Drum id={`Key${item.keyStroke}`} key={item.keyStroke} keyStroke={item.keyStroke} sound={item.sound} name={item.name} />)}
         </div>
         <div className="optionsDiv">
           {/* TODO: powerbutton */}
@@ -46,3 +54,4 @@ function App() {
 
 export default App;
 
+//onKeyDown={(e) => handleKeyPress(e, item.keyStroke)}
